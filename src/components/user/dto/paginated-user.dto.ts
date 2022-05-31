@@ -1,4 +1,4 @@
-import { PaginatedResults } from 'src/commons/dtos/paginated-results.dto';
+import { PaginatedResults } from '../../../commons/dtos';
 import { GetUserDto } from './get-user.dto';
 
 export class PaginateUserDto extends PaginatedResults<GetUserDto> {

@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { LeanDocument, Model } from 'mongoose';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UserServiceInterface } from './interface/user-service.interface';
 import { UserDocument, UserEntity } from './schemas/user.schema';
 
@@ -31,5 +32,15 @@ export class UserService implements UserServiceInterface {
       .skip(pageSize * (page - 1))
       .lean();
     return [result, countUsers];
+  }
+
+  async create(data: CreateUserDto): Promise<UserEntity> {
+    const alreadyExist = await this.UserModel.findOne({ email: data.email });
+
+    if (alreadyExist) {
+      throw new HttpException('User already exists.', HttpStatus.CONFLICT);
+    }
+
+    return this.UserModel.create(data);
   }
 }

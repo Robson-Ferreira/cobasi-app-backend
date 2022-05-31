@@ -2,14 +2,6 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class GetUserDto {
   @ApiPropertyOptional({
-    description: 'User id',
-    type: String,
-    example: '6126e04cc6151e00306b9820',
-    required: true,
-  })
-  id: string;
-
-  @ApiPropertyOptional({
     description: 'User name',
     type: String,
     example: 'Name User',

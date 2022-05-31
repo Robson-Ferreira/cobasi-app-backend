@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
-import { RequestPaginateDto } from 'src/commons/dtos/request-paginated.dto';
+import { RequestPaginateDto } from '../../../commons/dtos';
 
 export class FilterPaginatedUserDto extends RequestPaginateDto {
   @ApiPropertyOptional({

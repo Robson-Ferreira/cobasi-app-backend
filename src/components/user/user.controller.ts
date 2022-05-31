@@ -3,10 +3,12 @@ import {
   Controller,
   Get,
   Inject,
+  Logger,
   Post,
   Query,
   ValidationPipe,
 } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
 import { FilterPaginatedUserDto } from './dto/filter.paginated.dto';
 import { GetUserDto } from './dto/get-user.dto';
 import { PaginateUserDto } from './dto/paginated-user.dto';
@@ -14,6 +16,8 @@ import { UserServiceInterface } from './interface/user-service.interface';
 
 @Controller('users')
 export class UserController {
+  private readonly logger = new Logger(UserController.name);
+
   constructor(
     @Inject('UserServiceInterface')
     private readonly userService: UserServiceInterface,
@@ -43,7 +47,7 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body(ValidationPipe) data: GetUserDto): Promise<any> {
-    return data;
+  async create(@Body(ValidationPipe) data: CreateUserDto): Promise<GetUserDto> {
+    return this.userService.create(data);
   }
 }
