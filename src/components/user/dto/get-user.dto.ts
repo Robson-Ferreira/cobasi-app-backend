@@ -1,7 +1,7 @@
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class GetUserDto {
-  @ApiPropertyOptional({
+  @ApiProperty({
     description: 'User name',
     type: String,
     example: 'Name User',
