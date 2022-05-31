@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodatabase
+    restart: always
+    ports:
+      - 27017:27017
+    volumes: 
+      - .docker/db_data:/data/db
+  
