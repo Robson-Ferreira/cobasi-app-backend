@@ -3,14 +3,10 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export abstract class Env {
-  public static readonly NODE_ENV: string =
-    process.env.NODE_ENV || 'development';
+  public static readonly NODE_ENV: string = process.env.NODE_ENV || 'local';
 
   public static readonly APPLICATION_PORT: string =
     process.env.APPLICATION_PORT;
-
-  public static readonly APPLICATION_NAME: string =
-    process.env.APPLICATION_NAME;
 
   public static readonly APPLICATION_VERSION: string =
     process.env.APPLICATION_VERSION;
@@ -23,4 +19,6 @@ export abstract class Env {
   public static readonly SWAGGER_DOCS: string = process.env.SWAGGER_DOCS;
 
   public static readonly SWAGGER_SERVER: string = process.env.SWAGGER_SERVER;
+
+  public static readonly DATABASE_URI: string = process.env.DATABASE_URI;
 }
