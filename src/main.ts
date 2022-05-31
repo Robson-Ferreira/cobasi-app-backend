@@ -7,6 +7,7 @@ import {
   SwaggerModule,
 } from '@nestjs/swagger';
 import { Logger } from '@nestjs/common';
+import { hostname } from 'os';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -37,7 +38,9 @@ async function bootstrap() {
   await app
     .listen(parseInt(port.toString(), 10), '0.0.0.0')
     .then(() => {
-      Logger.log(`API Listen on ${port}`);
+      Logger.log(
+        `API Listen on ${Env.NODE_ENV}@${hostname()}:${Env.APPLICATION_PORT}`,
+      );
     })
     .catch((error: any) => Logger.error(error));
 }
