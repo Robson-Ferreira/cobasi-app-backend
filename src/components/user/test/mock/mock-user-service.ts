@@ -25,6 +25,7 @@ export const mockUser = (): UserEntity =>
   ({
     name: faker.name.findName(),
     email: faker.internet.email(),
+    phone: faker.phone.phoneNumber(),
   } as UserEntity);
 
 export const mockUsers = (): UserEntity[] => [

@@ -13,6 +13,7 @@ import { FilterPaginatedUserDto } from './dto/filter.paginated.dto';
 import { GetUserDto } from './dto/get-user.dto';
 import { PaginateUserDto } from './dto/paginated-user.dto';
 import { UserServiceInterface } from './interface/user-service.interface';
+import { UserEntity } from './schemas/user.schema';
 
 @ApiTags('Users')
 @Controller('users')
@@ -29,8 +30,8 @@ export class UserController {
   ): Promise<PaginateUserDto> {
     const { page = 1, perPage = 20, search } = query;
 
-    const pageNumber = Number(page);
-    const pageSize = Number(perPage);
+    const pageNumber = +page;
+    const pageSize = +perPage;
 
     const [result, count] = await this.userService.find({
       page,
@@ -38,17 +39,12 @@ export class UserController {
       search,
     });
 
-    return new PaginateUserDto(
-      JSON.parse(JSON.stringify(result)),
-      count,
-      pageNumber,
-      pageSize,
-    );
+    return new PaginateUserDto(result as GetUserDto[], count, pageNumber);
   }
 
   @Post()
   @ApiOkResponse({ type: GetUserDto })
-  async create(@Body(ValidationPipe) data: CreateUserDto): Promise<GetUserDto> {
+  async create(@Body(ValidationPipe) data: CreateUserDto): Promise<UserEntity> {
     return this.userService.create(data);
   }
 }

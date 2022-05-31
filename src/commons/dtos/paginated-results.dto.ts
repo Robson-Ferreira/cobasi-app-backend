@@ -15,15 +15,11 @@ export abstract class PaginatedResults<T> {
   @ApiProperty()
   pages: number;
 
-  @ApiProperty()
-  total: number;
-
-  constructor(data: T[], totalItems: number, page: number, pageSize: number) {
+  constructor(data: T[], page: number, pageSize: number) {
     this.data = data;
     this.count = data.length;
     this.currentPage = page;
     this.perPage = pageSize;
-    this.total = totalItems;
-    this.pages = Math.ceil(this.total / this.perPage);
+    this.pages = Math.ceil(this.count / this.perPage);
   }
 }

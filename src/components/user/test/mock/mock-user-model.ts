@@ -26,5 +26,9 @@ export class UserModelSpy {
 
   static create = jest.fn().mockResolvedValue(mockedUser);
 
-  static findOne = jest.fn().mockResolvedValue(null);
+  static findOne = () => {
+    return {
+      lean: jest.fn().mockResolvedValue(null),
+    };
+  };
 }

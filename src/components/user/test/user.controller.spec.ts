@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { GetUserDto } from '../dto/get-user.dto';
 import { PaginateUserDto } from '../dto/paginated-user.dto';
 import { UserServiceInterface } from '../interface/user-service.interface';
 import { UserController } from '../user.controller';
@@ -37,13 +38,28 @@ describe('UserController', () => {
     const response = await sut.findAll({});
 
     expect(response).toEqual(
-      new PaginateUserDto(
-        JSON.parse(JSON.stringify(mockedUsers)),
-        mockedUsers.length,
-        Number(1),
-        Number(20),
-      ),
+      new PaginateUserDto(mockedUsers as GetUserDto[], mockedUsers.length, 1),
     );
+  });
+
+  test('should return the correct response when fetching empty users', async () => {
+    const { sut } = await makeSut();
+
+    const response = await sut.findAll({});
+
+    expect(response).toEqual(new PaginateUserDto([], 0, 1));
+  });
+
+  test('should successfully create a user', async () => {
+    const { sut, userServiceSpy } = await makeSut();
+
+    userServiceSpy.params = [];
+    const mockedUser = mockUser();
+
+    const response = await sut.create(mockedUser);
+
+    expect(userServiceSpy.params).toHaveLength(1);
+    expect(response).toEqual(mockedUser);
   });
 
   test('should successfully create a user', async () => {
