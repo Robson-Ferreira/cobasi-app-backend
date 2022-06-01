@@ -28,18 +28,15 @@ export class UserController {
   async findAll(
     @Query() query?: FilterPaginatedUserDto,
   ): Promise<PaginateUserDto> {
-    const { page = 1, perPage = 20, search } = query;
-
-    const pageNumber = +page;
-    const pageSize = +perPage;
+    const { current = 1, page = 5, search } = query;
 
     const [result, count] = await this.userService.find({
-      page,
-      pageSize,
+      current: +current,
+      page: +page,
       search,
     });
 
-    return new PaginateUserDto(result as GetUserDto[], count, pageNumber);
+    return new PaginateUserDto(result as GetUserDto[], count, +current, +page);
   }
 
   @Post()

@@ -4,22 +4,22 @@ export abstract class PaginatedResults<T> {
   data: T[];
 
   @ApiProperty()
-  currentPage: number;
-
-  @ApiProperty()
-  perPage: number;
+  current: number;
 
   @ApiProperty()
   count: number;
 
   @ApiProperty()
-  pages: number;
+  page: number;
 
-  constructor(data: T[], page: number, pageSize: number) {
+  @ApiProperty()
+  total: number;
+
+  constructor(data: T[], total: number, current: number, page: number) {
     this.data = data;
     this.count = data.length;
-    this.currentPage = page;
-    this.perPage = pageSize;
-    this.pages = Math.ceil(this.count / this.perPage);
+    this.total = total;
+    this.current = current;
+    this.page = page;
   }
 }

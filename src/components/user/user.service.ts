@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { LeanDocument, Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
-import { GetUserDto } from './dto/get-user.dto';
 import { UserServiceInterface } from './interface/user-service.interface';
 import { UserDocument, UserEntity } from './schemas/user.schema';
 
@@ -14,8 +13,8 @@ export class UserService implements UserServiceInterface {
   ) {}
 
   async find({
+    current,
     page,
-    pageSize,
     search,
   }): Promise<[LeanDocument<UserEntity[]>, number]> {
     const filter: any = {};
@@ -29,8 +28,8 @@ export class UserService implements UserServiceInterface {
 
     const countUsers = await this.UserModel.countDocuments();
     const result = await this.UserModel.find(filter)
-      .limit(pageSize)
-      .skip(pageSize * (page - 1))
+      .limit(page)
+      .skip(page * (current - 1))
       .lean();
     return [result, countUsers];
   }
