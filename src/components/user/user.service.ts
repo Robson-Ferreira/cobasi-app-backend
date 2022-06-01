@@ -36,11 +36,14 @@ export class UserService implements UserServiceInterface {
 
   async create(data: CreateUserDto): Promise<UserEntity> {
     const alreadyExist = await this.UserModel.findOne({
-      email: data.email,
+      $or: [{ email: data.email }, { phone: data.phone }],
     }).lean();
 
     if (alreadyExist) {
-      throw new HttpException('User already exists.', HttpStatus.CONFLICT);
+      throw new HttpException(
+        'There is already a registered user with the email/phone number provided.',
+        HttpStatus.CONFLICT,
+      );
     }
 
     return this.UserModel.create(data);
