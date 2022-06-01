@@ -26,7 +26,7 @@ export class UserService implements UserServiceInterface {
       ];
     }
 
-    const countUsers = await this.UserModel.countDocuments();
+    const countUsers = await this.UserModel.countDocuments(filter);
     const result = await this.UserModel.find(filter)
       .limit(page)
       .skip(page * (current - 1))

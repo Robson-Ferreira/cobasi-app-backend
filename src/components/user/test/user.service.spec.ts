@@ -32,8 +32,8 @@ describe('UserService', () => {
     const mockedUsersFromModel = mockedUsers;
 
     const query = {
-      page: 1,
-      pageSize: 20,
+      current: 1,
+      page: 20,
       search: null,
     };
 

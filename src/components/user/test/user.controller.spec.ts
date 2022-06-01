@@ -38,7 +38,12 @@ describe('UserController', () => {
     const response = await sut.findAll({});
 
     expect(response).toEqual(
-      new PaginateUserDto(mockedUsers as GetUserDto[], mockedUsers.length, 1),
+      new PaginateUserDto(
+        mockedUsers as GetUserDto[],
+        mockedUsers.length,
+        1,
+        5,
+      ),
     );
   });
 
@@ -47,7 +52,7 @@ describe('UserController', () => {
 
     const response = await sut.findAll({});
 
-    expect(response).toEqual(new PaginateUserDto([], 0, 1));
+    expect(response).toEqual(new PaginateUserDto([], 0, 1, 5));
   });
 
   test('should successfully create a user', async () => {

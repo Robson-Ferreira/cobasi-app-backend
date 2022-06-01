@@ -7,9 +7,6 @@ export abstract class PaginatedResults<T> {
   current: number;
 
   @ApiProperty()
-  count: number;
-
-  @ApiProperty()
   page: number;
 
   @ApiProperty()
@@ -17,7 +14,6 @@ export abstract class PaginatedResults<T> {
 
   constructor(data: T[], total: number, current: number, page: number) {
     this.data = data;
-    this.count = data.length;
     this.total = total;
     this.current = current;
     this.page = page;
